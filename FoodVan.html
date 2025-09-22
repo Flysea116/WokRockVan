@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WokRock | 餐车租赁与售卖</title>
+  <meta name="description" content="WokRock — 瑞士餐车租赁、售卖与企业快闪方案。精致、简约、可信赖、专业。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f8fafb;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#0ea5e9;
+      --brand-dark:#0284c7;
+      --accent:#22c55e;
+      --shadow:0 10px 25px rgba(2,8,23,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:rgba(248,250,251,.8);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#60a5fa);display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:var(--shadow)}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 14px;border:1px solid var(--line);background:var(--card);transition:.2s;cursor:pointer}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+    .btn-primary{background:var(--brand);color:#fff;border-color:transparent}
+    .btn-primary:hover{background:var(--brand-dark)}
+    .lang-switch{border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--card)}
+
+    /* Hero */
+    .hero{padding:70px 0 40px;}
+    .hero-inner{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center}
+    .hero-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .kpi{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:14px;text-align:center}
+    h1{font-size:40px;line-height:1.1;margin:0 0 10px}
+    p.lead{font-size:18px;color:var(--muted);margin:0}
+
+    /* Showcase */
+    .showcase{padding:30px 0}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .shot{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);cursor:zoom-in}
+    .shot img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .3s ease}
+    .shot:hover img{transform:scale(1.03)}
+    .shot .caption{position:absolute;left:10px;bottom:10px;background:rgba(15,23,42,.66);color:#fff;padding:6px 10px;border-radius:10px;font-size:12px}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9999}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:90vw;max-height:85vh;border-radius:16px;box-shadow:var(--shadow)}
+    .lightbox .close{position:absolute;top:20px;right:24px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px;cursor:pointer;font-weight:600}
+
+    /* Sections */
+    section{padding:40px 0}
+    .section-title{font-size:28px;margin:0 0 18px}
+    .grid{display:grid;gap:18px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .muted{color:var(--muted)}
+
+    /* Packages */
+    .packages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .package{position:relative;display:flex;flex-direction:column;gap:12px;border-radius:22px;padding:0;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;transition:transform .25s ease, box-shadow .25s ease}
+    .package:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 22px 50px rgba(2,8,23,.14)}
+    .package .icon{font-size:22px}
+    .badge{display:inline-block;background:#eef6ff;color:#075985;border:1px solid #dbeafe;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600}
+    .ribbon{position:absolute;top:14px;right:14px;background:linear-gradient(135deg,var(--brand),#60a5fa);color:#fff;padding:6px 10px;border-radius:10px;font-size:12px;font-weight:700;box-shadow:var(--shadow)}
+    .package .list{margin:0;padding:0 0 0 18px}
+    .package .cta{margin-top:auto;display:flex;gap:10px}
+    .btn-ghost{background:#fff;border:1px dashed var(--line)}
+    .featured{border:1.5px solid rgba(14,165,233,.45);background:linear-gradient(180deg,#ffffff, #f7fbff)}
+    .pkg-hero{height:150px;background-size:cover;background-position:center;border-bottom:1px solid var(--line)}
+    .pkg-body{padding:20px}
+
+    /* Pricing */
+    .price{font-size:26px;font-weight:700}
+    .small{font-size:12px;color:var(--muted)}
+
+    /* Steps */
+    .steps{counter-reset:step}
+    .step{position:relative;padding-left:44px}
+    .step:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700}
+
+    /* Testimonials */
+    .testi{display:flex;gap:12px}
+    .avatar{width:42px;height:42px;border-radius:50%;background:#e2e8f0}
+
+    /* Contact */
+    form{display:grid;gap:12px}
+    input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    textarea{min-height:120px}
+
+    footer{padding:30px 0;color:var(--muted);border-top:1px solid var(--line)}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:repeat(1,1fr)}
+      .grid-2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden>🍳</div>
+        <span>WokRock</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#advantages" class="btn" data-i18n="nav.advantages">优势</a>
+        <a href="#packages" class="btn" data-i18n="nav.packages">服务包</a>
+        <a href="#showcase" class="btn" data-i18n="nav.showcase">效果图</a>
+        <a href="#pricing" class="btn" data-i18n="nav.pricing">价格区间</a>
+        <a href="#process" class="btn" data-i18n="nav.process">流程</a>
+        <a href="#testimonials" class="btn" data-i18n="nav.testimonials">口碑</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="nav.contact">联系</a>
+        <select id="lang" class="lang-switch" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="de" selected>Deutsch</option>
+          <option value="en">English</option>
+        </select>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1 data-i18n="hero.title">餐车租赁与售卖，一站式专业方案</h1>
+          <p class="lead" data-i18n="hero.subtitle">合规车源 · 全程保障 · 当周可交付。助你快速开启美食生意或企业快闪。</p>
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+            <a href="#contact" class="btn btn-primary" data-i18n="cta.primary">获取报价</a>
+            <a href="#packages" class="btn" data-i18n="cta.secondary">查看服务包</a>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><div class="price" data-i18n="hero.kpi1.value">48h</div><div class="small" data-i18n="hero.kpi1.label">最快交付</div></div>
+            <div class="kpi"><div class="price" data-i18n="hero.kpi2.value">100%</div><div class="small" data-i18n="hero.kpi2.label">食品与道路合规</div></div>
+            <div class="kpi"><div class="price" data-i18n="hero.kpi3.value">24/7</div><div class="small" data-i18n="hero.kpi3.label">售后支持</div></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="badge" data-i18n="hero.badge">瑞士本地 · 可信赖</div>
+          <img referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1526025975685-f1a20155b2cc?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Food truck" style="width:100%;border-radius:14px;margin:10px 0"/>
+          <p class="muted" data-i18n="hero.note">图片仅示意，实际车型以库存为准。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section id="showcase" class="showcase">
+      <h2 class="section-title" data-i18n="show.title">效果图</h2>
+      <div class="gallery">
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Food truck exterior"/><figcaption class="caption" data-i18n="show.cap1">外观</figcaption></figure>
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1532635241-17e820acc59f?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Cooking station"/><figcaption class="caption" data-i18n="show.cap2">操作台</figcaption></figure>
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Interior layout"/><figcaption class="caption" data-i18n="show.cap3">内部布局</figcaption></figure>
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Night lighting"/><figcaption class="caption" data-i18n="show.cap4">夜间灯光</figcaption></figure>
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Brand wrap"/><figcaption class="caption" data-i18n="show.cap5">品牌贴膜</figcaption></figure>
+        <figure class="shot"><img loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=1400&q=80&fm=jpg" alt="Event scene"/><figcaption class="caption" data-i18n="show.cap6">活动现场</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- Advantages -->
+    <section id="advantages">
+      <h2 class="section-title" data-i18n="adv.title">我们的优势</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <strong data-i18n="adv.a1.title">车况严选</strong>
+          <p class="muted" data-i18n="adv.a1.desc">定期保养与安全检查，设备即插即用。</p>
+        </div>
+        <div class="card">
+          <strong data-i18n="adv.a2.title">全程合规</strong>
+          <p class="muted" data-i18n="adv.a2.desc">符合食品卫生与道路法规，资料随车提供。</p>
+        </div>
+        <div class="card">
+          <strong data-i18n="adv.a3.title">保障齐全</strong>
+          <p class="muted" data-i18n="adv.a3.desc">保险/质保/备用方案，运营更安心。</p>
+        </div>
+        <div class="card">
+          <strong data-i18n="adv.a4.title">迅速交付</strong>
+          <p class="muted" data-i18n="adv.a4.desc">标准配置现货，最快48小时内可上路。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages -->
+    <section id="packages">
+      <h2 class="section-title" data-i18n="pkg.title">三大服务包</h2>
+      <div class="packages-grid">
+        <!-- Basic Rental -->
+        <div class="card package">
+          <div class="pkg-hero" style="background-image:url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1400&auto=format&fit=crop')"></div>
+          <div class="pkg-body">
+            <div class="icon">🚚</div>
+            <span class="badge" data-i18n="pkg.p1.badge">基础租赁</span>
+            <h3 data-i18n="pkg.p1.title">基础租赁</h3>
+            <p class="muted" data-i18n="pkg.p1.desc">短租/长租灵活选择，含基本维护与交接培训。</p>
+            <ul class="list">
+              <li data-i18n="pkg.p1.i1">合规车体 + 厨设</li>
+              <li data-i18n="pkg.p1.i2">基本保险与故障支援</li>
+              <li data-i18n="pkg.p1.i3">交车培训与清单</li>
+            </ul>
+            <div class="cta">
+              <a href="#contact" class="btn btn-primary" data-i18n="pkg.cta">咨询此方案</a>
+              <a href="#showcase" class="btn btn-ghost" data-i18n="pkg.view">看效果</a>
+            </div>
+          </div>
+        </div>
+        <!-- Starter Boost (featured) -->
+        <div class="card package featured">
+          <div class="ribbon" data-i18n="pkg.popular">最受欢迎</div>
+          <div class="pkg-hero" style="background-image:url('https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1400&auto=format&fit=crop')"></div>
+          <div class="pkg-body">
+            <div class="icon">🔥</div>
+            <span class="badge" data-i18n="pkg.p2.badge">创业加速包</span>
+            <h3 data-i18n="pkg.p2.title">创业加速包</h3>
+            <p class="muted" data-i18n="pkg.p2.desc">含免费咨询与“先租后买”，用运营数据辅助决策。</p>
+            <ul class="list">
+              <li data-i18n="pkg.p2.i1">1对1免费咨询与菜单建议</li>
+              <li data-i18n="pkg.p2.i2">先租后买，租金可抵部分车价</li>
+              <li data-i18n="pkg.p2.i3">物料与供应链指引</li>
+            </ul>
+            <div class="cta">
+              <a href="#contact" class="btn btn-primary" data-i18n="pkg.cta">咨询此方案</a>
+              <a href="#pricing" class="btn btn-ghost" data-i18n="pkg.view">看效果</a>
+            </div>
+          </div>
+        </div>
+        <!-- Corporate Pop-up -->
+        <div class="card package">
+          <div class="pkg-hero" style="background-image:url('https://images.unsplash.com/photo-1458640904116-093b74971de9?q=80&w=1400&auto=format&fit=crop')"></div>
+          <div class="pkg-body">
+            <div class="icon">🏢</div>
+            <span class="badge" data-i18n="pkg.p3.badge">企业快闪方案</span>
+            <h3 data-i18n="pkg.p3.title">企业快闪方案</h3>
+            <p class="muted" data-i18n="pkg.p3.desc">含临时执照办理与服务人员配置，适合品牌路演。</p>
+            <ul class="list">
+              <li data-i18n="pkg.p3.i1">活动执照/场地合规支持</li>
+              <li data-i18n="pkg.p3.i2">专业人员与运营SOP</li>
+              <li data-i18n="pkg.p3.i3">定制外观与品牌露出</li>
+            </ul>
+            <div class="cta">
+              <a href="#contact" class="btn btn-primary" data-i18n="pkg.cta">咨询此方案</a>
+              <a href="#showcase" class="btn btn-ghost" data-i18n="pkg.view">看效果</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+      <h2 class="section-title" data-i18n="price.title">价格区间（瑞士本地参考）</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <strong data-i18n="price.c1.title">短租（日/周）</strong>
+          <p class="price" data-i18n="price.c1.value">CHF 180–350 / 天</p>
+          <p class="muted" data-i18n="price.c1.note">含基本保险与维护</p>
+        </div>
+        <div class="card">
+          <strong data-i18n="price.c2.title">长租（月度）</strong>
+          <p class="price" data-i18n="price.c2.value">CHF 2’500–4’500 / 月</p>
+          <p class="muted" data-i18n="price.c2.note">含保养与设备折旧</p>
+        </div>
+        <div class="card">
+          <strong data-i18n="price.c3.title">售卖（含配置）</strong>
+          <p class="price" data-i18n="price.c3.value">CHF 35’000–85’000</p>
+          <p class="muted" data-i18n="price.c3.note">实际价格以车型与改装为准</p>
+        </div>
+      </div>
+      <p class="small" data-i18n="price.disclaimer">* 以上为示意区间，最终报价以项目需求与库存为准。</p>
+    </section>
+
+    <!-- Process -->
+    <section id="process">
+      <h2 class="section-title" data-i18n="proc.title">三步流程</h2>
+      <div class="grid grid-3 steps">
+        <div class="card step">
+          <h3 data-i18n="proc.s1.title">提交需求</h3>
+          <p class="muted" data-i18n="proc.s1.desc">告诉我们城市、时间、人数与菜系偏好。</p>
+        </div>
+        <div class="card step">
+          <h3 data-i18n="proc.s2.title">合规确认</h3>
+          <p class="muted" data-i18n="proc.s2.desc">我们核对食品/道路/场地合规并给到方案。</p>
+        </div>
+        <div class="card step">
+          <h3 data-i18n="proc.s3.title">交付支持</h3>
+          <p class="muted" data-i18n="proc.s3.desc">交车培训、SOP与现场支持，顺利开卖。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+      <h2 class="section-title" data-i18n="t.title">客户口碑</h2>
+      <div class="grid grid-3">
+        <div class="card testi">
+          <div class="avatar" aria-hidden></div>
+          <div>
+            <strong>Laura K.</strong>
+            <p class="muted" data-i18n="t.t1">“流程清晰，48小时就开卖了。团队很专业。”</p>
+          </div>
+        </div>
+        <div class="card testi">
+          <div class="avatar" aria-hidden></div>
+          <div>
+            <strong>Marco R.</strong>
+            <p class="muted" data-i18n="t.t2">“先租后买帮我试错省钱，设备状态很好。”</p>
+          </div>
+        </div>
+        <div class="card testi">
+          <div class="avatar" aria-hidden></div>
+          <div>
+            <strong>Anna S.</strong>
+            <p class="muted" data-i18n="t.t3">“公司快闪活动一站式搞定，省心省时。”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-title" data-i18n="c.title">联系与咨询</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <form onsubmit="event.preventDefault(); alert(i18n.t('c.success')); this.reset();">
+            <div class="grid grid-2">
+              <div>
+                <label for="name" class="small" data-i18n="c.name">姓名</label>
+                <input id="name" name="name" placeholder="" required />
+              </div>
+              <div>
+                <label for="email" class="small">Email</label>
+                <input id="email" name="email" type="email" placeholder="contact@wokrock.ch" required />
+              </div>
+            </div>
+            <div class="grid grid-2">
+              <div>
+                <label for="city" class="small" data-i18n="c.city">城市</label>
+                <input id="city" name="city" placeholder="Zürich / Basel / Genève" />
+              </div>
+              <div>
+                <label for="date" class="small" data-i18n="c.date">时间</label>
+                <input id="date" name="date" type="text" placeholder="2025-10 / 具体日期" />
+              </div>
+            </div>
+            <div>
+              <label for="message" class="small" data-i18n="c.msg">需求描述</label>
+              <textarea id="message" name="message" placeholder="人数、菜系、设备需求等"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit" data-i18n="c.submit">发送咨询</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>WokRock</h3>
+          <p class="muted">
+            <span data-i18n="c.addr">瑞士 · 服务覆盖全国</span><br/>
+            <a href="mailto:contact@wokrock.ch">contact@wokrock.ch</a>
+          </p>
+          <div class="grid grid-2">
+            <div>
+              <strong data-i18n="c.office">办公城市（示例）</strong>
+              <ul class="list muted">
+                <li>Zürich</li>
+                <li>Basel</li>
+                <li>Genève</li>
+              </ul>
+            </div>
+            <div>
+              <strong data-i18n="c.hours">服务时间</strong>
+              <p class="muted" data-i18n="c.hours2">周一至周五 09:00–18:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <span class="small">© <span id="year"></span> WokRock</span>
+      <span class="small" data-i18n="foot.note">本页为推广演示，可接入您的域名与表单系统。</span>
+    </div>
+  </footer>
+
+  <!-- Lightbox root -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+    <button class="close" aria-label="Close">×</button>
+    <img alt="preview" />
+  </div>
+
+  <script>
+    const dict = {
+      zh: {
+        nav:{advantages:"优势",packages:"服务包",showcase:"效果图",pricing:"价格区间",process:"流程",testimonials:"口碑",contact:"联系"},
+        hero:{title:"餐车租赁与售卖，一站式专业方案",subtitle:"合规车源 · 全程保障 · 当周可交付。助你快速开启美食生意或企业快闪。",badge:"瑞士本地 · 可信赖",note:"图片仅示意，实际车型以库存为准。",kpi1:{value:"48h",label:"最快三交付"},kpi2:{value:"100%",label:"食品与道路合规"},kpi3:{value:"24/7",label:"售后支持"}},
+        cta:{primary:"获取报价",secondary:"查看服务包"},
+        show:{title:"效果图",cap1:"外观",cap2:"操作台",cap3:"内部布局",cap4:"夜间灯光",cap5:"品牌贴膜",cap6:"活动现场"},
+        adv:{title:"我们的优势",a1:{title:"车况严选",desc:"定期保养与安全检查，设备即插即用。"},a2:{title:"全程合规",desc:"符合食品卫生与道路法规，资料随车提供。"},a3:{title:"保障齐全",desc:"保险/质保/备用方案，运营更安心。"},a4:{title:"迅速交付",desc:"标准配置现货，最快48小时内可上路。"}},
+        pkg:{title:"三大服务包",popular:"最受欢迎",cta:"咨询此方案",view:"看效果",p1:{badge:"基础租赁",title:"基础租赁",desc:"短租/长租灵活选择，含基本维护与交接培训。",i1:"合规车体 + 厨设",i2:"基本保险与故障支援",i3:"交车培训与清单"},p2:{badge:"创业加速包",title:"创业加速包",desc:"含免费咨询与“先租后买”，用运营数据辅助决策。",i1:"1对1免费咨询与菜单建议",i2:"先租后买，租金可抵部分车价",i3:"物料与供应链指引"},p3:{badge:"企业快闪方案",title:"企业快闪方案",desc:"含临时执照办理与服务人员配置，适合品牌路演。",i1:"活动执照/场地合规支持",i2:"专业人员与运营SOP",i3:"定制外观与品牌露出"}},
+        price:{title:"价格区间（瑞士本地参考）",c1:{title:"短租（日/周）",value:"CHF 180–350 / 天",note:"含基本保险与维护"},c2:{title:"长租（月度）",value:"CHF 2’500–4’500 / 月",note:"含保养与设备折旧"},c3:{title:"售卖（含配置）",value:"CHF 35’000–85’000",note:"实际价格以车型与改装为准"},disclaimer:"* 以上为示意区间，最终报价以项目需求与库存为准。"},
+        proc:{title:"三步流程",s1:{title:"提交需求",desc:"告诉我们城市、时间、人数与菜系偏好。"},s2:{title:"合规确认",desc:"我们核对食品/道路/场地合规并给到方案。"},s3:{title:"交付支持",desc:"交车培训、SOP与现场支持，顺利开卖。"}},
+        t:{title:"客户口碑",t1:"“流程清晰，48小时就开卖了。团队很专业。”",t2:"“先租后买帮我试错省钱，设备状态很好。”",t3:"“公司快闪活动一站式搞定，省心省时。”"},
+        c:{title:"联系与咨询",name:"姓名",city:"城市",date:"时间",msg:"需求描述",submit:"发送咨询",addr:"瑞士 · 服务覆盖全国",office:"办公城市（示例）",hours:"服务时间",hours2:"周一至周五 09:00–18:00",success:"感谢咨询，我们会尽快通过邮箱与您联系。"},
+        foot:{note:"本页为推广演示，可接入您的域名与表单系统。"}
+      },
+      de: {
+        nav:{advantages:"Vorteile",packages:"Pakete",showcase:"Showcase",pricing:"Preisspanne",process:"Ablauf",testimonials:"Stimmen",contact:"Kontakt"},
+        hero:{title:"Foodtruck Miete & Verkauf – alles aus einer Hand",subtitle:"Konforme Fahrzeuge · Rundum-Absicherung · Lieferung noch in derselben Woche.",badge:"Schweiz · Vertrauenswürdig",note:"Bild dient als Beispiel. Modelle je nach Bestand.",kpi1:{value:"48h",label:"Schnellste Lieferung"},kpi2:{value:"100%",label:"Lebensmittel & Strasse konform"},kpi3:{value:"24/7",label:"Support"}},
+        cta:{primary:"Angebot anfragen",secondary:"Pakete ansehen"},
+        show:{title:"Showcase",cap1:"Außenansicht",cap2:"Arbeitsstation",cap3:"Innenlayout",cap4:"Nachtbeleuchtung",cap5:"Brand‑Folie",cap6:"Event‑Szene"},
+        adv:{title:"Unsere Vorteile",a1:{title:"Top Zustand",desc:"Regelmässige Wartung & Checks. Plug-and-Play."},a2:{title:"Voll konform",desc:"Entspricht Hygiene- und Strassenrecht. Doku an Bord."},a3:{title:"Umfassende Absicherung",desc:"Versicherung/Garantie/Backup – sorgenfrei betrieben."},a4:{title:"Schnelle Lieferung",desc:"Standardkonfiguration ab Lager – innert 48h bereit."}},
+        pkg:{title:"Drei Service-Pakete",popular:"Am beliebtesten",cta:"Zu diesem Paket",view:"Bilder ansehen",p1:{badge:"Basis Miete",title:"Basis Miete",desc:"Flexible Kurz-/Langzeitmiete inkl. Übergabe & Wartung.",i1:"Konformes Fahrzeug + Küche",i2:"Grundversicherung & Pannenhilfe",i3:"Übergabeschulung & Checkliste"},p2:{badge:"Gründer-Boost",title:"Gründer-Boost",desc:"Kostenlose Beratung & Miete-kauf-Option – entscheiden mit Zahlen.",i1:"1:1 Beratung & Menü-Tipps",i2:"Miete später an Kauf anrechenbar",i3:"Material- & Supply-Guide"},p3:{badge:"Corporate Pop-up",title:"Corporate Pop-up",desc:"Bewilligungen & Personal inklusive – ideal für Roadshows.",i1:"Bewilligungen/Locationsupport",i2:"Profi-Personal & SOPs",i3:"Branding & Aussenfolie"}},
+        price:{title:"Preisspannen (Schweiz)",c1:{title:"Kurzzeit (Tag/Woche)",value:"CHF 180–350 / Tag",note:"Grundversicherung & Wartung inbegriffen"},c2:{title:"Langzeit (monatlich)",value:"CHF 2’500–4’500 / Monat",note:"Wartung & Abschreibung enthalten"},c3:{title:"Kauf (inkl. Ausbau)",value:"CHF 35’000–85’000",note:"Abhängig von Modell & Ausbau"},disclaimer:"* Richtwerte. Verbindliches Angebot nach Bedarf & Verfügbarkeit."},
+        proc:{title:"Ablauf in 3 Schritten",s1:{title:"Anfrage senden",desc:"Stadt, Zeitraum, Personen & Küche angeben."},s2:{title:"Konformitätscheck",desc:"Wir prüfen Hygiene/Strasse/Location und schlagen vor."},s3:{title:"Lieferung & Support",desc:"Übergabeschulung, SOPs und Vor-Ort-Support."}},
+        t:{title:"Kundenstimmen",t1:"„Klarer Ablauf – in 48h startklar. Sehr professionell.“",t2:"„Miete-kauf hat uns Geld gespart. Top Zustand.“",t3:"„Pop-up fürs Unternehmen – komplett aus einer Hand.“"},
+        c:{title:"Kontakt & Beratung",name:"Name",city:"Stadt",date:"Zeitraum",msg:"Bedarf",submit:"Anfrage senden",addr:"Schweiz – landesweit",office:"Büro-Städte (Beispiel)",hours:"Servicezeiten",hours2:"Mo–Fr 09:00–18:00",success:"Danke! Wir melden uns per E‑Mail."},
+        foot:{note:"Demo-Seite. Eigene Domain & Formularsystem integrierbar."}
+      },
+      en: {
+        nav:{advantages:"Advantages",packages:"Packages",showcase:"Showcase",pricing:"Pricing",process:"Process",testimonials:"Testimonials",contact:"Contact"},
+        hero:{title:"Food Truck Rental & Sales, End‑to‑End",subtitle:"Compliant vehicles · Full coverage · Delivery this week.",badge:"Switzerland · Trusted",note:"Images are illustrative. Actual models depend on stock.",kpi1:{value:"48h",label:"Fastest delivery"},kpi2:{value:"100%",label:"Food & road compliant"},kpi3:{value:"24/7",label:"After‑sales support"}},
+        cta:{primary:"Get a quote",secondary:"View packages"},
+        show:{title:"Showcase",cap1:"Exterior",cap2:"Cooking station",cap3:"Interior layout",cap4:"Night lighting",cap5:"Brand wrap",cap6:"Event scene"},
+        adv:{title:"Why WokRock",a1:{title:"Curated condition",desc:"Regular maintenance & safety checks. Plug-and-play."},a2:{title:"Fully compliant",desc:"Meets hygiene & road regulations. Docs included."},a3:{title:"Protected",desc:"Insurance/warranty/backup for peace of mind."},a4:{title:"Rapid delivery",desc:"Standard configs in stock; road‑ready within 48h."}},
+        pkg:{title:"Three Packages",popular:"Most popular",cta:"Enquire",view:"See images",p1:{badge:"Basic Rental",title:"Basic Rental",desc:"Flexible short/long-term with handover & maintenance.",i1:"Compliant truck + kitchen",i2:"Basic insurance & roadside",i3:"Handover training & checklist"},p2:{badge:"Starter Boost",title:"Starter Boost",desc:"Free consulting & rent‑to‑own; decide with real data.",i1:"1:1 consulting & menu tips",i2:"Rent fees creditable toward purchase",i3:"Materials & supply guidance"},p3:{badge:"Corporate Pop‑up",title:"Corporate Pop‑up",desc:"Permits + staffing included; perfect for roadshows.",i1:"Permit/location compliance",i2:"Pro staff & SOPs",i3:"Custom wrap & branding"}},
+        price:{title:"Price Ranges (Switzerland)",c1:{title:"Short‑term (day/week)",value:"CHF 180–350 / day",note:"Basic insurance & maintenance"},c2:{title:"Long‑term (monthly)",value:"CHF 2’500–4’500 / month",note:"Maintenance & depreciation"},c3:{title:"Purchase (configured)",value:"CHF 35’000–85’000",note:"Depends on model & build"},disclaimer:"* Ranges are indicative. Final quote depends on needs & availability."},
+        proc:{title:"3‑Step Process",s1:{title:"Submit request",desc:"City, dates, headcount & cuisine preferences."},s2:{title:"Compliance check",desc:"We verify hygiene/road/location compliance and propose."},s3:{title:"Delivery & support",desc:"Handover training, SOPs and on‑site support."}},
+        t:{title:"What clients say",t1:"“Clear process. We were selling in 48h. Very professional.”",t2:"“Rent‑to‑own saved us money. Equipment was pristine.”",t3:"“Corporate pop‑up made easy end‑to‑end.”"},
+        c:{title:"Contact",name:"Name",city:"City",date:"Dates",msg:"Brief your needs",submit:"Send",addr:"Switzerland · Nationwide",office:"Office cities (sample)",hours:"Service hours",hours2:"Mon–Fri 09:00–18:00",success:"Thanks! We will reach out by email."},
+        foot:{note:"Demo page. Can integrate with your domain & form backend."}
+      }
+    };
+
+    const i18n = {
+      lang: 'de',
+      set(l){ this.lang=l; document.documentElement.lang=l; this.apply(); },
+      t(path){
+        const parts = path.split('.');
+        let obj = dict[this.lang];
+        for(const p of parts){ obj = obj?.[p]; }
+        return obj ?? '';
+      },
+      apply(){
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const key = el.getAttribute('data-i18n');
+          const val = this.t(key);
+          if(typeof val === 'object') return; // skip containers
+          el.innerText = val;
+        });
+      }
+    };
+
+    // init
+    const sel = document.getElementById('lang');
+    sel.addEventListener('change', e=> i18n.set(e.target.value));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    sel.value='de'; i18n.set('de');
+
+    // Lightbox logic
+    const lb = document.getElementById('lightbox');
+    document.addEventListener('click', (e)=>{
+      const shot = e.target.closest('.shot');
+      if(shot){
+        const img = shot.querySelector('img');
+        const large = img.currentSrc || img.src;
+        // if image not yet loaded, still open lightbox and then load
+        lb.classList.add('open');
+        const viewer = lb.querySelector('img');
+        viewer.src = '';
+        viewer.onload = ()=>{};
+        viewer.onerror = ()=>{ window.open(large, '_blank'); };
+        viewer.src = large;
+      }
+      if(e.target.closest('.close') || (e.target===lb)){
+        lb.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ lb.classList.remove('open'); }});
+  </script>
+</body>
+</html>
